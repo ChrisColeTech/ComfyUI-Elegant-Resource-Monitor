@@ -128,10 +128,17 @@ def install_tkinter(version_str):
 def import_tkinter():
     try:
         tkinter = importlib.import_module("tkinter")
+        print("tkinter module loaded successfully.")
         return tkinter
-    except ImportError:
+    except ModuleNotFoundError as e:
+        print(f"Module not found: {e}")
+    except ImportError as e:
         print("Failed to import Tkinter after installation.")
-        return None
+        print(f"An error occurred: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+ 
+    return None
 
 
 def import_GPUtil():

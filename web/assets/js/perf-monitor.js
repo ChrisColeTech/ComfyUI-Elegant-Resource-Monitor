@@ -4,7 +4,7 @@ styles.href =
 styles.property = "stylesheet";
 styles.rel = "stylesheet";
 
-styles.onload = function () {
+styles.onload = async function () {
   console.log("Stylesheet loaded and applied.");
   if (
     localStorage.getItem("lastClass") &&
@@ -52,17 +52,31 @@ resourceMonitorImg.className = "resource-monitor-icon";
 resourceMonitorImg.src =
   "/extensions/ComfyUI-Elegant-Resource-Monitor/assets/img/monitor.svg";
 
-// Create a placeholder for the content fetched via AJAX
-var resourceMonitorContent = document.createElement("div");
-
+// Call the setup function
+await setupResourceMonitor();
 // Fetch HTML content and set it to the resourceMonitorContent
 async function setupResourceMonitor() {
   try {
     const response = await fetch(
       "/extensions/ComfyUI-Elegant-Resource-Monitor/templates/perf-monitor/perf-monitor.html"
     );
+
     const content = await response.text();
+    // Create a placeholder for the content fetched via AJAX
+    var resourceMonitorContent = document.createElement("div");
+
     resourceMonitorContent.innerHTML = content;
+
+    // Find the #chart-button element in the loaded content
+    const chartButton = resourceMonitorContent.querySelector("#chart-button");
+    // Get the saved position
+    const savedPosition =
+      localStorage.getItem("perf-monitor-position") || "bottom-right";
+
+    if (chartButton) {
+      // Set the savedPosition class on the #chart-button element
+      chartButton.classList.add(savedPosition);
+    }
 
     // Append the image to the anchor element
     resourceMonitorLink.appendChild(resourceMonitorImg);
@@ -91,8 +105,6 @@ async function setupResourceMonitor() {
   }
 }
 
-// Call the setup function
-await setupResourceMonitor();
 // Attach the onclick event handler to the anchor element
 resourceMonitorLink.addEventListener("click", function (event) {
   event.preventDefault(); // Prevent default link behavior if necessary
@@ -998,3 +1010,27 @@ function showPerfMonitor() {
   }
   $(chartButton).toggleClass("active");
 }
+
+document.getElementById("popupTrigger").addEventListener("click", function () {
+  const menu = document.getElementById("settingsMenu");
+  const menuRect = menu.getBoundingClientRect();
+  const buttonRect = this.getBoundingClientRect();
+  const viewportHeight = window.innerHeight;
+
+  if (menu.offsetTop < 0) {
+    menu.style.position = "absolute"; // Ensure the menu is positioned absolutely
+    menu.style.top = `29px`;
+  }
+
+  // Default position: directly below the button
+  let topPosition = buttonRect.bottom;
+
+  // Calculate if the menu will overflow the bottom of the viewport
+  if (topPosition + menuRect.height > viewportHeight) {
+    // Calculate how much the menu overflows the viewport
+    const overflowAmount = topPosition + menuRect.height - viewportHeight;
+    // Apply the calculated position
+    menu.style.position = "absolute"; // Ensure the menu is positioned absolutely
+    menu.style.top = `-${overflowAmount}px`;
+  }
+});

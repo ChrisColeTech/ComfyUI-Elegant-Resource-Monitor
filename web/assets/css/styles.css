@@ -142,7 +142,6 @@ i {
 }
 
 #settingsMenu {
-  display: none; /* Hidden by default */
   position: absolute !important;
   transform: translateX(-50%) !important; /* Center alignment */
   background: #000000 !important;
@@ -152,7 +151,7 @@ i {
   z-index: 1000 !important;
   opacity: 0 !important;
   transform: scale(0.8) translateY(-20px) !important; /* Initial hidden state */
-  transition: opacity 1s ease, transform 0.3s ease !important;
+  transition: opacity 0.5s ease, transform 0.3s ease !important;
   text-align: center;
 }
 
