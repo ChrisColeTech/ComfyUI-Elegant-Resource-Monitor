@@ -1,14 +1,15 @@
 <head>
-  <link href="/assets/css/styles.css" rel="stylesheet" />
-  <link href="/assets/css/material-icon.css" rel="stylesheet" />
+  <link
+    href="/extensions/ComfyUI-Elegant-Resource-Monitor/assets/css/material-icon.css"
+    rel="stylesheet"
+  />
 </head>
-<button onclick="showPerfMonitor()"></button>
 <div id="chart-button" class="bottom-right">
   <div class="chart-row">
     <div class="left-col">
       <i class="material-icons" id="popupTrigger">settings</i>
       <div id="settingsMenu" class="settings-menu">
-        <div class="settings-row">Settings</div>
+        <div class="settings-row"><div class="settings-col">Settings</div></div>
         <hr id="settings-hr" class="settings-hr" />
 
         <div class="settings-row">
@@ -29,7 +30,7 @@
         </div>
 
         <div class="settings-row">
-          <span>Position</span>
+          <div class="settings-col">Position</div>
           <div id="positionMenu" class="position-menu">
             <button class="position-btn position-clickable" id="top-left">
               <i class="material-icons">north_west</i>
@@ -64,9 +65,7 @@
     </div>
 
     <div class="chart-col">
-      <i class="material-icons" id="close-button" onclick="showPerfMonitor()"
-        >close</i
-      >
+      <i class="material-icons" id="close-button">close</i>
     </div>
   </div>
   <div id="chart-wrapper">
@@ -76,8 +75,4 @@
     <div id="custom-legend"></div>
   </div>
 </div>
-<script src="/assets/js/jquery-3.7.1.min.js"></script>
-<script src="/assets/js/chart.js"></script>
-<script src="/assets/js/chartjs-plugin-datalabels.js"></script>
-
-<script src="/assets/js/perf-monitor.js"></script>
+<script src="/extensions/ComfyUI-Elegant-Resource-Monitor/assets/js/perf-monitor.js"></script>

@@ -1,7 +1,7 @@
 #chart-button {
   position: fixed !important;
-  transition: bottom 0.4s ease-in-out, right 0.4s ease-in-out, height 0.3s ease,
-    width 0.3s ease;
+  transition: bottom 0.6s ease-in-out, right 0.6s ease-in-out, height 0.4s ease,
+    width 0.4s ease;
   background-color: #00000096 !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
   color: white !important;
@@ -11,84 +11,66 @@
 }
 
 #chart-button.bottom-right {
-  bottom: 10px !important;
-  right: -800px !important;
+  margin: 0px;
 }
 
 #chart-button.bottom-left {
-  bottom: 10px !important;
-  right: calc(100vw + 30px + 600px) !important;
+  margin: 0px;
 }
 
 #chart-button.bottom-center {
-  bottom: -800px !important;
-  right: calc(50vw - 85px) !important;
+  margin: 0px;
 }
 
 #chart-button.top-right {
-  bottom: calc(100vh - 10px - 185px) !important;
-  right: -800px !important;
+  margin: 0px;
 }
 
 #chart-button.top-left {
-  bottom: calc(100vh - 10px - 185px) !important;
-  right: calc(100vw + 30px + 225px) !important;
+  margin: 0px;
 }
 
 #chart-button.top-center {
-  bottom: calc(100vh + 10px + 185px) !important;
-  right: calc(50vw - 85px) !important;
+  margin: 0px;
 }
 
 #chart-button.left-center {
-  right: calc(100vw + 30px + 225px) !important;
-  bottom: calc(50vh - 85px) !important;
+  margin: 0px;
 }
 
 #chart-button.right-center {
-  right: -800px !important;
-  bottom: calc(50vh - 85px) !important;
+  margin: 0px;
 }
 
 #chart-button.center {
-  right: -800px !important;
-  bottom: calc(50vh - 85px) !important;
+  margin: 0px;
 }
 #chart-button.bottom-right.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 #chart-button.bottom-left.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 #chart-button.bottom-center.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 #chart-button.top-right.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 #chart-button.top-left.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 #chart-button.top-center.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 #chart-button.left-center.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 #chart-button.right-center.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 #chart-button.center.active {
-  bottom: auto;
-  right: auto;
+  margin: 0px;
 }
 .chart-row {
   padding: 5px 5px 0px 5px !important;
@@ -98,6 +80,7 @@
   z-index: 9999 !important;
   position: relative !important;
   align-items: center;
+  margin-bottom: -10px;
 }
 
 .chart-col {
@@ -121,17 +104,17 @@
 
 #chart-container.bar.small {
   padding: 5px !important;
-  height: 160px !important;
+  height: 120px !important;
 }
 
 #chart-container.bar.medium {
   padding: 5px !important;
-  height: 290px !important;
+  height: 200px !important;
 }
 
 #chart-container.bar.large {
   padding: 5px !important;
-  height: 570px !important;
+  height: 420px !important;
 }
 
 #chart-container.line.small {
@@ -141,12 +124,12 @@
 
 #chart-container.line.medium {
   padding: 5px !important;
-  height: 240px !important;
+  height: 220px !important;
 }
 
 #chart-container.line.large {
   padding: 5px !important;
-  height: 440px !important;
+  height: 400px !important;
 }
 
 i {
@@ -164,7 +147,6 @@ i {
   transform: translateX(-50%) !important; /* Center alignment */
   background: #000000 !important;
   border: 0px solid #ddd !important;
-  padding: 10px !important;
   border-radius: 6px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
   z-index: 1000 !important;
@@ -225,12 +207,12 @@ i {
 .settings-row {
   display: inline-block;
   text-align: center !important;
-  margin-right: 10px;
-  margin-bottom: 5px !important;
+  margin: 5px !important;
 }
 
 .settings-col {
   text-align: center;
+  font-size: 10px;
 }
 .settings-hr {
   width: 0px;
@@ -269,4 +251,17 @@ i {
 
 #show_resource_monitor {
   cursor: pointer !important;
+  position: fixed;
+  top: 20px;
+  left: 10px;
+  z-index: 9991;
+  margin: 5px;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+}
+
+.resource-monitor-icon {
+  margin: 5px;
+  height: 14px;
 }

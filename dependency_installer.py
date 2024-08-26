@@ -93,7 +93,25 @@ def copy_tkinter_files(version_str):
         print(f"Error: No tkinter files for Python {version_str}")
         return
 
+    # Define paths
     python_dir = os.path.dirname(sys.executable)
+    pth_filename = f"{python_zip}._pth"
+    pth_path_src = os.path.join(src_folder, pth_filename)
+    pth_path_dest = os.path.join(python_dir, pth_filename)
+
+    # Copy the .pth file from python_dir to src_folder
+    if os.path.exists(pth_path_dest):
+        shutil.copy(pth_path_dest, pth_path_src)
+    else:
+        print(f"Error: {pth_filename} not found in {python_dir}")
+        return
+
+    # Modify the .pth file
+    with open(pth_path_src, 'a') as pth_file:
+        pth_file.write(f'\n./{python_zip}\n')
+        pth_file.write('./Scripts\n')
+        pth_file.write('./DLLs\n')
+
     print(f"Copying tkinter files from {src_folder} to {python_dir}...")
     shutil.copytree(src_folder, python_dir, dirs_exist_ok=True)
 

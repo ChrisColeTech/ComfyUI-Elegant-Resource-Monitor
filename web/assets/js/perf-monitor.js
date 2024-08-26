@@ -1,11 +1,150 @@
+var styles = document.createElement("link");
+styles.href =
+  "/extensions/ComfyUI-Elegant-Resource-Monitor/assets/css/styles.css";
+styles.property = "stylesheet";
+styles.rel = "stylesheet";
+
+styles.onload = function () {
+  console.log("Stylesheet loaded and applied.");
+  if (
+    localStorage.getItem("lastClass") &&
+    localStorage.getItem("lastInactiveClass")
+  ) {
+    var lastClass = JSON.parse(localStorage.getItem("lastClass"));
+    var lastInactiveClass = JSON.parse(
+      localStorage.getItem("lastInactiveClass")
+    );
+    addCSS(lastInactiveClass.key, lastInactiveClass.values[0]);
+    addCSS(lastClass.key, lastClass.values[0]);
+  }
+};
+
+function addCSS(selector, styles) {
+  var rule = getCSSRule(selector);
+
+  for (var property in styles) {
+    if (styles.hasOwnProperty(property)) {
+      rule.style.setProperty(property, styles[property], "important");
+    }
+  }
+}
+
+document.head.appendChild(styles);
+
+var material = document.createElement("link");
+material.href =
+  "/extensions/ComfyUI-Elegant-Resource-Monitor/assets/css/material-icon.css";
+material.property = "stylesheet";
+material.rel = "stylesheet";
+document.head.appendChild(material);
+
+// Create the new resource monitor div
+var resourceMonitorDiv = document.createElement("div");
+
+// Create the anchor element
+var resourceMonitorLink = document.createElement("a");
+resourceMonitorLink.id = "show_resource_monitor";
+resourceMonitorLink.textContent = "Resource Monitor"; // Set text content for the link
+
+// Create the image element
+var resourceMonitorImg = document.createElement("img");
+resourceMonitorImg.className = "resource-monitor-icon";
+resourceMonitorImg.src =
+  "/extensions/ComfyUI-Elegant-Resource-Monitor/assets/img/monitor.svg";
+
+// Create a placeholder for the content fetched via AJAX
+var resourceMonitorContent = document.createElement("div");
+
+// Fetch HTML content and set it to the resourceMonitorContent
+async function setupResourceMonitor() {
+  try {
+    const response = await fetch(
+      "/extensions/ComfyUI-Elegant-Resource-Monitor/templates/perf-monitor/perf-monitor.html"
+    );
+    const content = await response.text();
+    resourceMonitorContent.innerHTML = content;
+
+    // Append the image to the anchor element
+    resourceMonitorLink.appendChild(resourceMonitorImg);
+
+    // Append the anchor element to the resourceMonitorDiv
+    resourceMonitorDiv.appendChild(resourceMonitorLink);
+
+    // Insert the fetched content into the resourceMonitorDiv
+    resourceMonitorDiv.appendChild(resourceMonitorContent);
+
+    // Find the hamburgerDiv and its parent
+    var hamburgerDiv = document.querySelector(".comfy-menu-hamburger");
+    if (hamburgerDiv) {
+      var parentDiv = hamburgerDiv.parentNode;
+
+      // Insert the resourceMonitorDiv before the hamburgerDiv
+      parentDiv.insertBefore(resourceMonitorDiv, hamburgerDiv);
+    } else {
+      console.error("Hamburger div not found");
+    }
+  } catch (error) {
+    console.error(
+      "Failed to fetch or process the resource monitor content:",
+      error
+    );
+  }
+}
+
+// Call the setup function
+await setupResourceMonitor();
+// Attach the onclick event handler to the anchor element
+resourceMonitorLink.addEventListener("click", function (event) {
+  event.preventDefault(); // Prevent default link behavior if necessary
+  showPerfMonitor(); // Call your function
+});
+
+window.barChart = function () {
+  checkForUpdates("active-chart", "bar");
+  updateChartSize();
+};
+
+window.lineChart = function () {
+  checkForUpdates("active-chart", "line");
+  updateChartSize();
+};
+
+window.smallChart = function () {
+  checkForUpdates("chart-size", "small");
+  updateChartSize();
+};
+
+window.mediumChart = function () {
+  checkForUpdates("chart-size", "medium");
+  updateChartSize();
+};
+
+window.largeChart = function () {
+  checkForUpdates("perf-monitor-position", "center");
+  checkForUpdates("chart-size", "large");
+  updateChartSize();
+};
+
+function checkForUpdates(key, value) {
+  var previous = localStorage.getItem(key);
+  var updated = previous != value;
+  localStorage.setItem("hasUpdates", updated);
+  localStorage.setItem(key, value);
+}
+
 const { hostname } = window.location; // Gets the host without port
 const baseUrl = `http://${hostname}:5000`; // Append the port 5000
 const apiUrl = `${baseUrl}/gpu_usage/`;
-const perfMonitorContainer = $("#perf-monitor-container");
-const chartButton = $("#chart-button");
-const closeButton = $("#close-button");
 const chartContainer = document.getElementById("chart-container");
 const chartWrapper = document.getElementById("chart-wrapper");
+
+var styles = document.createElement("link");
+styles.href =
+  "extensions/ComfyUI-Elegant-Resource-Monitor/assets/css/styles.css";
+styles.property = "stylesheet";
+styles.rel = "stylesheet";
+document.head.appendChild(styles);
+
 // Define your color palette
 const colorPalette = [
   "rgb(240, 193, 90, 0.2)",
@@ -49,7 +188,7 @@ const fixedLabelPlugin = {
       });
     });
 
-    ctx.font = "12px Arial";
+    ctx.font = "8px Arial";
     ctx.fillStyle = "#FFFFFF";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -70,15 +209,15 @@ function getSizes() {
   var sizes = {};
   if (savedChart == "bar") {
     sizes = {
-      small: { height: "185", width: "225" },
-      medium: { height: "325", width: "360" },
-      large: { height: "600", width: "800" },
+      small: { height: "130", width: "180" },
+      medium: { height: "220", width: "340" },
+      large: { height: "440", width: "750" },
     };
   } else {
     sizes = {
-      small: { height: "155", width: "225" },
-      medium: { height: "300", width: "500" },
-      large: { height: "500", width: "800" },
+      small: { height: "140", width: "200" },
+      medium: { height: "255", width: "425" },
+      large: { height: "450", width: "800" },
     };
   }
   return sizes;
@@ -96,10 +235,12 @@ function updateButtonPosition() {
 }
 
 function updateChartSize() {
+  const settingsMenu = document.getElementById("settingsMenu");
+  settingsMenu.classList.remove("show"); // Hide the menu if visible
   const chartButton = document.getElementById("chart-button");
   const size = localStorage.getItem("chart-size") ?? "small";
   const savedChart = localStorage.getItem("active-chart") ?? "bar";
-
+  const chartContainer = document.getElementById("chart-container");
   const sizes = getSizes();
   chartContainer.classList.remove("small", "medium", "large", "bar", "line");
   chartContainer.classList.add(size);
@@ -111,14 +252,22 @@ function updateChartSize() {
   $(chartButton).each(function () {
     this.style.setProperty("height", `${buttonHeight}px`, "important");
     this.style.setProperty("width", `${buttonWidth}px`, "important");
+    if (size === "large") {
+      this.style.setProperty("background-color", ` #000000d6`, "important");
+    } else {
+      this.style.setProperty("background-color", ` #00000096`, "important");
+    }
   });
 
   updateButtonPosition();
+  const hasUpdates = localStorage.getItem("hasUpdates") ?? "false";
 
-  if (savedChart == "bar") {
-    initializeBarChart();
-  } else {
-    initializeLineChart();
+  if (hasUpdates === "true") {
+    if (savedChart == "bar") {
+      initializeBarChart();
+    } else {
+      initializeLineChart();
+    }
   }
 }
 
@@ -186,6 +335,19 @@ function setButtonPosition(
 
   const active = `#chart-button.${savedPosition}.active`;
   const positionStyles = positions[savedPosition];
+
+  var lastClass = {
+    key: active,
+    values: [
+      {
+        bottom: positionStyles.bottom,
+        right: positionStyles.right,
+      },
+    ],
+  };
+  var lastClassString = JSON.stringify(lastClass);
+  localStorage.setItem("lastClass", lastClassString);
+
   updateCSS(active, positionStyles);
 
   const inactive = `#chart-button.${savedPosition}`;
@@ -216,7 +378,7 @@ function updateinActiveCSS(selector, styles, key) {
       break;
     case "bottom-left":
       style.bottom = "10px";
-      style.right = `calc(100vw + 30px + ${buttonWidth + 10})px`;
+      style.right = `calc(100vw + 30px + ${buttonWidth + 10}px)`;
       break;
 
     case "bottom-center":
@@ -231,17 +393,17 @@ function updateinActiveCSS(selector, styles, key) {
 
     case "top-left":
       style.bottom = `${viewportHeight - buttonHeight - 10}px`;
-      style.right = `calc(100vw + 30px + ${buttonWidth + 10})px`;
+      style.right = `calc(100vw + 30px + ${buttonWidth + 10}px)`;
       break;
 
     case "top-center":
-      style.bottom = `calc(100vw + 30px + ${buttonHeight + 10})px`;
+      style.bottom = `calc(100vh + 30px + ${buttonHeight + 10}px)`;
       style.right = `${(viewportWidth - buttonWidth) / 2}px`;
       break;
 
     case "left-center":
       style.bottom = `${(viewportHeight - buttonHeight) / 2}px`;
-      style.right = `calc(100vw + 30px + ${buttonWidth + 10})px`;
+      style.right = `calc(100vw + 30px + ${buttonWidth + 10}px)`;
       break;
 
     case "right-center":
@@ -250,7 +412,7 @@ function updateinActiveCSS(selector, styles, key) {
       break;
 
     case "center":
-      style.bottom = `${(viewportHeight - buttonHeight) / 2}px`;
+      style.bottom = `calc(0vh - 30px - ${buttonHeight + 10}px)`;
       style.right = `${(viewportWidth - buttonWidth) / 2}px`;
       break;
 
@@ -259,6 +421,17 @@ function updateinActiveCSS(selector, styles, key) {
   }
   button.style.setProperty("bottom", style.bottom, "important");
   button.style.setProperty("right", style.right, "important");
+  var lastClass = {
+    key: selector,
+    values: [
+      {
+        bottom: style.bottom,
+        right: style.right,
+      },
+    ],
+  };
+  var lastClassString = JSON.stringify(lastClass);
+  localStorage.setItem("lastInactiveClass", lastClassString);
 }
 
 function updateCSS(selector, styles) {
@@ -284,33 +457,6 @@ function getCSSRule(ruleName) {
   return result;
 }
 
-// Example usage
-function smallChart() {
-  localStorage.setItem("chart-size", "small");
-  updateChartSize();
-}
-
-function mediumChart() {
-  localStorage.setItem("chart-size", "medium");
-  updateChartSize();
-}
-
-function barChart() {
-  localStorage.setItem("active-chart", "bar");
-  updateChartSize();
-}
-
-function lineChart() {
-  localStorage.setItem("active-chart", "line");
-  updateChartSize();
-}
-
-function largeChart() {
-  localStorage.setItem("perf-monitor-position", "center");
-  localStorage.setItem("chart-size", "large");
-  updateChartSize();
-}
-
 let intervalId; // Variable to store the interval ID
 // Function to start the interval
 function startInterval() {
@@ -327,7 +473,9 @@ function stopInterval() {
 // Initialize the bar chart
 function initializeBarChart() {
   localStorage.setItem("active-chart", "bar");
+  const chartContainer = document.getElementById("chart-container");
   const existingCanvas = document.getElementById("usage-chart");
+  const chartWrapper = document.getElementById("chart-wrapper");
   if (existingCanvas) {
     chartContainer.removeChild(existingCanvas);
   }
@@ -378,6 +526,7 @@ function initializeBarChart() {
           ticks: {
             color: "#ffffff",
             font: {
+              size: 7,
               weight: 600,
             },
             align: "center",
@@ -399,6 +548,14 @@ function initializeBarChart() {
             crossAlign: "far",
             font: {
               weight: 600,
+            },
+            // Specify the maximum number of ticks to show
+            maxTicksLimit: 10,
+            // Control the step size between ticks
+            stepSize: 1,
+            // Optional: Set font size and other style properties
+            font: {
+              size: 7,
             },
           },
         },
@@ -432,6 +589,8 @@ function initializeBarChart() {
 function initializeLineChart() {
   localStorage.setItem("active-chart", "line");
   const existingCanvas = document.getElementById("usage-chart");
+  const chartContainer = document.getElementById("chart-container");
+  const chartWrapper = document.getElementById("chart-wrapper");
   if (existingCanvas) {
     chartContainer.removeChild(existingCanvas);
   }
@@ -647,6 +806,7 @@ function initializeLineChart() {
             padding: 0,
             font: {
               weight: 600,
+              size: 7,
             },
             callback: function (value, index, ticks) {
               return value + "%";
@@ -697,6 +857,7 @@ function generateCustomLegend() {
       : `${borderColors[index]}`;
 
     legendText.style.fontWeight = shouldUseRed ? "700" : `400`;
+    legendText.style.fontSize = "10px";
 
     legendItem.appendChild(legendText);
     legendContainer.appendChild(legendItem);
@@ -763,6 +924,7 @@ document
 // Hide the settings menu when the close button is clicked
 document.getElementById("close-button").addEventListener("click", function () {
   document.getElementById("settingsMenu").classList.remove("show"); // Hide the menu
+  showPerfMonitor();
 });
 
 // Hide the settings menu when clicking outside
@@ -792,9 +954,10 @@ const perfMonitordisplayed = JSON.parse(
 
 if (perfMonitordisplayed == true) {
   updateButtonPosition();
+
   setTimeout(() => {
     showPerfMonitor();
-  }, 500);
+  }, 1000);
 }
 
 var shouldShowPerfMonitor = false;
@@ -805,6 +968,11 @@ function showPerfMonitor() {
   updateChartSize();
   shouldShowPerfMonitor = !shouldShowPerfMonitor;
   localStorage.setItem("shouldShowPerfMonitor", shouldShowPerfMonitor);
+  const chartButton = document.getElementById("chart-button");
+  const show_resource_monitor = document.getElementById(
+    "show_resource_monitor"
+  );
+
   if (shouldShowPerfMonitor === true) {
     const savedChart = localStorage.getItem("active-chart") ?? "bar";
 
@@ -817,15 +985,16 @@ function showPerfMonitor() {
     }, 100);
 
     startInterval();
+    $(show_resource_monitor).fadeOut();
   } else {
     setTimeout(() => {
       stopInterval();
     }, 500);
-    const chartButton = document.getElementById("chart-button");
     $(chartButton).each(function () {
       this.style.setProperty("height", `${0}px`, "important");
     });
     $(chartWrapper).hide();
+    $(show_resource_monitor).fadeIn();
   }
-  chartButton.toggleClass("active");
+  $(chartButton).toggleClass("active");
 }
