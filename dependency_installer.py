@@ -208,6 +208,6 @@ def run_pip(command, desc=None, live=default_command_live):
         return None
 
 
-check_tkinter_installed()
+# check_tkinter_installed()
 check_GPUtil_installed()
 check_flask_installed()
