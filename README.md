@@ -44,7 +44,7 @@ This custom node provides detailed insights into your CPU, GPU, and memory usage
 1.  **Open ComfyUI Manager**.
 2.  **Search for "Elegant Resource Monitor"**.
 3.  **Click "Install"** to add it directly to your ComfyUI setup.
-4.**Restart ComfyUI** and add the Elegant Resource Monitor will be added to your workspace. 
+4.  **Restart ComfyUI** and add the Elegant Resource Monitor will be added to your workspace. 
 
 <img src="https://github.com/user-attachments/assets/3f9e44e4-e2be-4a77-a873-d420f6d7807a" height="150" width="auto">
 
