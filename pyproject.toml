@@ -1,14 +1,14 @@
 [project]
-name = "comfyui-line-counter"
-description = "This custom node package for ComfyUI is designed to streamline your workflow with powerful file-counting capabilities."
+name = "comfyui-elegant-resource-monitor"
+description = "This custom node for ComfyUI will add a simple and elegant resource monitor."
 version = "1.0.0"
 license = {file = "LICENSE"}
 
 [project.urls]
-Repository = "https://github.com/ChrisColeTech/ComfyUI-Line-counter"
+Repository = "https://github.com/ChrisColeTech/ComfyUI-Elegant-Resource-Monitor"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
 PublisherId = "chriscoletech"
-DisplayName = "ComfyUI-Line-counter"
-Icon = "🎯"
+DisplayName = "ComfyUI-Elegant-Resource-Monitor"
+Icon = "📈"
