@@ -142,7 +142,7 @@ def import_tkinter():
 
 
 def import_GPUtil():
-    run_pip(f"install GPUtil")
+    run_pip(f"install GPUtil",desc="GPU Utility for NVIDIA GPUs")
 
     try:
         GPUtil = importlib.import_module(

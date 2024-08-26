@@ -1,5 +1,5 @@
 from flask_restx import Api, Resource, fields, Namespace
-from flask import Flask, jsonify, request, make_response, Blueprint
+from flask import jsonify, request, make_response, Blueprint
 import psutil
 import GPUtil
 import time
