@@ -1,5 +1,7 @@
 ## 🖥️ ComfyUI Elegant Resource Monitor
 
+![5](https://github.com/user-attachments/assets/87de567e-e1f4-45e2-81bd-9ea4e28445d2)
+
 This custom node provides detailed insights into your CPU, GPU, and memory usage while seamlessly integrating into your workspace. It's the sleek and functional tool for monitoring your system’s performance! 
 
 ## 🌟 Key Features
@@ -71,7 +73,7 @@ This custom node provides detailed insights into your CPU, GPU, and memory usage
 
 ![10](https://github.com/user-attachments/assets/61031030-354a-4246-97ad-83edf8dbe39f)
 
-![5](https://github.com/user-attachments/assets/87de567e-e1f4-45e2-81bd-9ea4e28445d2)
+
 
 
 
