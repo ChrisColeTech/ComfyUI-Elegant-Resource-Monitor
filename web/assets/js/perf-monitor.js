@@ -457,13 +457,20 @@ function getCSSRule(ruleName) {
   var result = null;
   var find = Array.prototype.find;
 
-  find.call(document.styleSheets, (styleSheet) => {
-    result = find.call(styleSheet.cssRules, (cssRule) => {
-      return (
-        cssRule instanceof CSSStyleRule &&
-        cssRule.selectorText.toLowerCase() == ruleName
-      );
-    });
+  Array.prototype.find.call(document.styleSheets, (styleSheet) => {
+    try {
+      if (styleSheet.cssRules) {
+        result = find.call(styleSheet.cssRules, (cssRule) => {
+          return (
+            cssRule instanceof CSSStyleRule &&
+            cssRule.selectorText.toLowerCase() == ruleName
+          );
+        });
+      }
+    } catch (e) {
+      // Handle cross-origin or other access errors
+      console.warn("Cannot access cssRules for stylesheet:", e);
+    }
     return result != null;
   });
   return result;
