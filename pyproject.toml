@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-line-counter"
+description = "This custom node package for ComfyUI is designed to streamline your workflow with powerful file-counting capabilities."
+version = "1.0.0"
+license = {file = "LICENSE"}
+
+[project.urls]
+Repository = "https://github.com/ChrisColeTech/ComfyUI-Line-counter"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "chriscoletech"
+DisplayName = "ComfyUI-Line-counter"
+Icon = "🎯"

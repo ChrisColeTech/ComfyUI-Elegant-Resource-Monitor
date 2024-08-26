@@ -1,0 +1,272 @@
+#chart-button {
+  position: fixed !important;
+  transition: bottom 0.4s ease-in-out, right 0.4s ease-in-out, height 0.3s ease,
+    width 0.3s ease;
+  background-color: #00000096 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  z-index: 9998;
+  height: 0px !important;
+}
+
+#chart-button.bottom-right {
+  bottom: 10px !important;
+  right: -800px !important;
+}
+
+#chart-button.bottom-left {
+  bottom: 10px !important;
+  right: calc(100vw + 30px + 600px) !important;
+}
+
+#chart-button.bottom-center {
+  bottom: -800px !important;
+  right: calc(50vw - 85px) !important;
+}
+
+#chart-button.top-right {
+  bottom: calc(100vh - 10px - 185px) !important;
+  right: -800px !important;
+}
+
+#chart-button.top-left {
+  bottom: calc(100vh - 10px - 185px) !important;
+  right: calc(100vw + 30px + 225px) !important;
+}
+
+#chart-button.top-center {
+  bottom: calc(100vh + 10px + 185px) !important;
+  right: calc(50vw - 85px) !important;
+}
+
+#chart-button.left-center {
+  right: calc(100vw + 30px + 225px) !important;
+  bottom: calc(50vh - 85px) !important;
+}
+
+#chart-button.right-center {
+  right: -800px !important;
+  bottom: calc(50vh - 85px) !important;
+}
+
+#chart-button.center {
+  right: -800px !important;
+  bottom: calc(50vh - 85px) !important;
+}
+#chart-button.bottom-right.active {
+  bottom: auto;
+  right: auto;
+}
+#chart-button.bottom-left.active {
+  bottom: auto;
+  right: auto;
+}
+#chart-button.bottom-center.active {
+  bottom: auto;
+  right: auto;
+}
+#chart-button.top-right.active {
+  bottom: auto;
+  right: auto;
+}
+#chart-button.top-left.active {
+  bottom: auto;
+  right: auto;
+}
+#chart-button.top-center.active {
+  bottom: auto;
+  right: auto;
+}
+#chart-button.left-center.active {
+  bottom: auto;
+  right: auto;
+}
+#chart-button.right-center.active {
+  bottom: auto;
+  right: auto;
+}
+#chart-button.center.active {
+  bottom: auto;
+  right: auto;
+}
+.chart-row {
+  padding: 5px 5px 0px 5px !important;
+  text-align: right !important;
+  display: flex !important;
+  justify-content: space-evenly !important;
+  z-index: 9999 !important;
+  position: relative !important;
+  align-items: center;
+}
+
+.chart-col {
+  flex: auto !important;
+}
+
+.left-col a {
+  width: 15px !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  display: inline-block !important;
+  text-align: center !important;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.left-col a:hover {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+#chart-container.bar.small {
+  padding: 5px !important;
+  height: 160px !important;
+}
+
+#chart-container.bar.medium {
+  padding: 5px !important;
+  height: 290px !important;
+}
+
+#chart-container.bar.large {
+  padding: 5px !important;
+  height: 570px !important;
+}
+
+#chart-container.line.small {
+  padding: 5px !important;
+  height: 107px !important;
+}
+
+#chart-container.line.medium {
+  padding: 5px !important;
+  height: 240px !important;
+}
+
+#chart-container.line.large {
+  padding: 5px !important;
+  height: 440px !important;
+}
+
+i {
+  color: #fff !important; /* Adjust color */
+  cursor: pointer !important; /* Change cursor to pointer on hover */
+}
+
+.toggle-resources-button:hover {
+  color: rgb(101, 101, 101) !important; /* Change color on hover */
+}
+
+#settingsMenu {
+  display: none; /* Hidden by default */
+  position: absolute !important;
+  transform: translateX(-50%) !important; /* Center alignment */
+  background: #000000 !important;
+  border: 0px solid #ddd !important;
+  padding: 10px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  z-index: 1000 !important;
+  opacity: 0 !important;
+  transform: scale(0.8) translateY(-20px) !important; /* Initial hidden state */
+  transition: opacity 1s ease, transform 0.3s ease !important;
+  text-align: center;
+}
+
+#settingsMenu.show {
+  display: grid !important; /* Show the menu */
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important; /* Animate to visible state */
+}
+
+.position-menu {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-rows: repeat(3, 1fr) !important;
+  grid-gap: 0px !important;
+}
+
+.position-btn > i {
+  color: #fff !important;
+}
+
+.position-btn {
+  color: #fff !important;
+  padding: 6px !important;
+  margin: 0px !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  border: 0px solid #ccc !important;
+  background-color: transparent !important;
+  border-radius: 4px !important;
+  text-align: center !important;
+}
+
+.position-btn:hover {
+  background-color: #fff !important;
+}
+.position-btn:hover > i {
+  color: #000 !important;
+}
+
+.material-icons {
+  font-size: 14px !important;
+}
+
+.left-col {
+  text-align: left !important;
+  margin-right: 10px;
+}
+
+.left-col.text {
+  margin-bottom: 5px !important;
+}
+.settings-row {
+  display: inline-block;
+  text-align: center !important;
+  margin-right: 10px;
+  margin-bottom: 5px !important;
+}
+
+.settings-col {
+  text-align: center;
+}
+.settings-hr {
+  width: 0px;
+  margin-top: 0px !important;
+  margin-bottom: 4px !important;
+  transition: width 1s ease;
+}
+
+.settings-hr.show {
+  width: 100%;
+}
+#custom-legend {
+  display: flex !important;
+  text-align: center;
+}
+
+.custom-legend-item {
+  margin-bottom: 5px !important;
+  font-size: 14px !important;
+  flex: auto !important;
+  align-items: center;
+}
+
+.custom-legend-color {
+  display: inline-block !important;
+  width: 15px !important;
+  height: 15px !important;
+  margin-right: 10px !important;
+  vertical-align: middle !important;
+}
+
+.custom-legend-text {
+  display: inline !important;
+  vertical-align: middle !important;
+}
+
+#show_resource_monitor {
+  cursor: pointer !important;
+}
