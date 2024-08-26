@@ -146,7 +146,7 @@ def import_GPUtil():
 
     try:
         GPUtil = importlib.import_module(
-            "GPUtil", desc="GPU Performance Monitor")
+            "GPUtil")
         return GPUtil
     except ImportError:
         print("Failed to import GPUtil after installation.")
