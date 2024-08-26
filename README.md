@@ -19,16 +19,7 @@ This custom node provides detailed insights into your CPU, GPU, and memory usage
     *   **Bar Chart**: Clear, segmented visualizations for easy comparison.
     *   **Line Chart**: Trend tracking with continuous line graphs.
 *   **📍 Flexible Positioning**:
-    *   Pin the monitor to any corner or side of your screen:
-        *   Top-left
-        *   Top-right
-        *   Bottom-left
-        *   Bottom-right
-        *   Left-center
-        *   Right-center
-        *   Top-center
-        *   Bottom-center
-        *   Center
+    *   Pin the monitor to any corner or side of your screen
 *   **🔲 Semi-Transparent Design**: Ensures your work remains visible and unobstructed.
 
 ## 🛠️ Installation
