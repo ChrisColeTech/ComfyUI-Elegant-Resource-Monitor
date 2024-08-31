@@ -1,4 +1,4 @@
-from dependency_installer import *
+from .dependency_installer import *
 from flask import Flask
 from flask_socketio import SocketIO, emit
 import logging
