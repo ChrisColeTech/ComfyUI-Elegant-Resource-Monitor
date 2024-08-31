@@ -1,4 +1,4 @@
-from .dependency_installer import *
+from .api.dependency_installer import *
 from .elegant_resource_monitor import ElegantResourceMonitor
 from .api.http_server import *
 
