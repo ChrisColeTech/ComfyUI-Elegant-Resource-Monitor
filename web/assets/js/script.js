@@ -406,7 +406,7 @@ setTimeout(() => {
   }
 
   function getCoordinates(isOutside) {
-    var position = localStorage.getItem('perf-monitor-position')
+    var position = localStorage.getItem('perf-monitor-position') ?? "bottom-right"
 
     if (isOutside) {
       var outsidePosition = getNearestPosition()
