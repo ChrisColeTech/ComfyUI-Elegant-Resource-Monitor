@@ -1,4 +1,5 @@
-from dependency_installer import *
+import signal
+from .dependency_installer import *
 from flask import Flask
 from flask_socketio import SocketIO, emit
 import logging
@@ -89,11 +90,15 @@ def handle_disconnect():
 
 
 def background_thread():
-    while True:
-        current_time = time.time()
-        get_cache(current_time)
-        socketio.emit('data_update', cache['data'])
-        time.sleep(.5)
+    try:
+        while True:
+            current_time = time.time()
+            get_cache(current_time)
+            socketio.emit('data_update', cache['data'])
+            # Use socketio.sleep() to avoid blocking issues
+            socketio.sleep(0.5)
+    except Exception as e:
+        logging.error(f"Error in background_thread: {e}")
 
 
 def run_app():
@@ -104,6 +109,14 @@ def run_app():
     socketio.run(app, port=5000)
 
 
+def signal_handler(sig, frame):
+    sys.exit(0)  # Clean exit of the program
+
+
+# Register signal handler for graceful shutdown
+signal.signal(signal.SIGINT, signal_handler)
+
 # Start Flask app in a separate thread
 thread = threading.Thread(target=run_app)
+thread.daemon = True  # Make the thread a daemon
 thread.start()
