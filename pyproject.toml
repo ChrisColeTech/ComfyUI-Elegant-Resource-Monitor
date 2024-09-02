@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-elegant-resource-monitor"
 description = "This custom node for ComfyUI will add a simple and elegant resource monitor."
-version = "1.0.7"
+version = "1.0.8"
 license = {file = "LICENSE"}
 
 [project.urls]
