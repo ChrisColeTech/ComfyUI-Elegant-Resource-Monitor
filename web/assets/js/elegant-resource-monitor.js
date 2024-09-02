@@ -255,7 +255,6 @@ class ElegantResourceMonitor extends HTMLElement {
       if (e === null || e === void 0 ? void 0 : e.detail.queue) {
         console.log(`(${e.detail.queue}) Running... in another tab`)
       } else {
-        console.log('Idle')
       }
     }
 
@@ -265,7 +264,6 @@ class ElegantResourceMonitor extends HTMLElement {
 
   connectedCallback() {
     if (!this.connected) {
-      console.log('Adding event listener to MONITOR_SERVICE')
       MONITOR_SERVICE.addEventListener(
         'elegant-resource-monitor-update',
         this.onProgressUpdateBound,

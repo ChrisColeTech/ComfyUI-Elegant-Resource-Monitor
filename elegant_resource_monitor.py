@@ -7,17 +7,14 @@ class ElegantResourceMonitor():
 
     @classmethod
     def INPUT_TYPES(s):
-        return {
-            "required": {
-                "directory_path": ("STRING", {"default": ""}),
-            },
-        }
+        return { }
 
-    RETURN_TYPES = ("INT", "FLOAT", "STRING",)
+    RETURN_TYPES = ()
+    RETURN_NAMES = ()
 
     FUNCTION = "run_resource_monitor"
 
-    CATEGORY = "CCTech/Utilities"
+    CATEGORY = "🤖 CCTech/Utilities"
 
     def run_resource_monitor(self):
         current_time = time.time()
@@ -25,9 +22,9 @@ class ElegantResourceMonitor():
 
 
 NODE_CLASS_MAPPINGS = {
-    "ElegantResourceMonitor": ElegantResourceMonitor,
+    "Resource Monitor": ElegantResourceMonitor,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "ElegantResourceMonitor": "📈 Resource Monitor",
+    "Resource Monitor": "Resource Monitor 📈",
 }

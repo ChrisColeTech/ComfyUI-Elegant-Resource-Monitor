@@ -4,7 +4,6 @@ styles.property = 'stylesheet'
 styles.rel = 'stylesheet'
 
 styles.onload = async function () {
-  console.log('Stylesheet loaded and applied.')
   if (localStorage.getItem('lastClass') && localStorage.getItem('lastInactiveClass')) {
     var lastClass = JSON.parse(localStorage.getItem('lastClass'))
     var lastInactiveClass = JSON.parse(localStorage.getItem('lastInactiveClass'))

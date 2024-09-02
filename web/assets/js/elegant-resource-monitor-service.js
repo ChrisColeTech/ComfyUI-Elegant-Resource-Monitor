@@ -1,5 +1,5 @@
 import { api } from '/scripts/api.js'
-import { getResolver } from './shared_utils.js'
+import { getResolver } from '../../comfyui/shared_utils.js'
 export class ElegantResourceMonitorExecution {
   constructor(id) {
     this.promptApi = null
