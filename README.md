@@ -30,7 +30,7 @@ This custom node provides detailed insights into your CPU, GPU, and memory usage
 
 1.  **Clone the Repository**:
     
-    `git clone` [`https://github.com/ChrisColeTech/Elegant-Resource-Monitor.git`](https://github.com/ChrisColeTech/Elegant-Resource-Monitor.git)
+    `git clone` [`git clone https://github.com/ChrisColeTech/ComfyUI-Elegant-Resource-Monitor.git`](git clone https://github.com/ChrisColeTech/ComfyUI-Elegant-Resource-Monitor.git)
     
     `<path/to/comfyui/custom_nodes>`
     
