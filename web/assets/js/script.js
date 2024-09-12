@@ -698,4 +698,4 @@ setTimeout(() => {
     })
     showPerfMonitor()
   })
-}, 4000)
+}, 5000)
