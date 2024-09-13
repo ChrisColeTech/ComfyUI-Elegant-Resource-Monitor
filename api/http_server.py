@@ -1,3 +1,4 @@
+import sys
 import signal
 from .dependency_installer import *
 from flask import Flask

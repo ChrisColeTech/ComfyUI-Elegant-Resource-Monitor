@@ -45,7 +45,9 @@ function getCSSRule(ruleName) {
 document.head.appendChild(styles)
 
 // Call the setup function
-await setupResourceMonitor()
+setTimeout(async () => {
+  await setupResourceMonitor()
+}, 4000)
 
 // Fetch HTML content and set it to the resourceMonitorContent
 async function setupResourceMonitor() {
