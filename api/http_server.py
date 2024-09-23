@@ -4,6 +4,7 @@ from flask import Flask, send_from_directory, jsonify, render_template
 import threading
 import logging
 from flask_cors import CORS
+from flask_restx import Api
 from .controllers import register_blueprints
 import os
 import sys
@@ -143,4 +144,15 @@ def run_app():
     socketio.run(app, port=5000, allow_unsafe_werkzeug=True)
 
 
-run_app()
+def signal_handler(sig, frame):
+    sys.exit(0)  # Clean exit of the program
+
+    socketio.run(app, port=5000, allow_unsafe_werkzeug=True)
+
+# Register signal handler for graceful shutdown
+signal.signal(signal.SIGINT, signal_handler)
+
+# Start Flask app in a separate thread
+thread = threading.Thread(target=run_app)
+thread.daemon = True  # Make the thread a daemon
+thread.start()
