@@ -1,6 +1,13 @@
+
+from .dependency_installer import *
+from flask import Flask, send_from_directory, jsonify, render_template
+import threading
+import logging
+from flask_cors import CORS
+from .controllers import register_blueprints
+import os
 import sys
 import signal
-from .dependency_installer import *
 from flask import Flask
 from flask_socketio import SocketIO, emit
 import logging
@@ -9,13 +16,39 @@ import psutil
 import GPUtil
 import threading
 
-# Initialize Flask app
-title = "Resource Monitor"
+
+def load_page(filename):
+    """Load an HTML file as a string and return it"""
+    file_path = os.path.join("web", filename)
+    with open(file_path, 'r') as file:
+        content = file.read()
+    return content
+
+
+# Suppress the Flask development server warning
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)  # Set level to ERROR to suppress warnings
+
+title = f"Elegant Resource Monitor"
 app = Flask(title, static_folder='web/assets', template_folder='web/templates')
 app.config['CORS_HEADERS'] = 'Content-Type'
+api = Api(app, version='1.0', title=title,
+          description='Elegant Resource Monitor REST API')
+
+# Register blueprints (API endpoints)
+register_blueprints(app, api)
 
 # Initialize SocketIO with the Flask app
 socketio = SocketIO(app, cors_allowed_origins="*")
+
+# Enable CORS for all origins
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('web', filename)
+
 
 # Cache for system usage data
 cache = {
@@ -107,17 +140,7 @@ def run_app():
     # Start the background thread for emitting data
     socketio.start_background_task(target=background_thread)
     # Run the Flask app with SocketIO
-    socketio.run(app, port=5000)
+    socketio.run(app, port=5000, allow_unsafe_werkzeug=True)
 
 
-def signal_handler(sig, frame):
-    sys.exit(0)  # Clean exit of the program
-
-
-# Register signal handler for graceful shutdown
-signal.signal(signal.SIGINT, signal_handler)
-
-# Start Flask app in a separate thread
-thread = threading.Thread(target=run_app)
-thread.daemon = True  # Make the thread a daemon
-thread.start()
+run_app()

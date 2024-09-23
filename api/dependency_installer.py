@@ -38,6 +38,7 @@ def check_flask_installed():
         import flask
         import flask_cors
         import flask_socketio
+        import flask_restx
         return True
     except ImportError:
         import_flask()
@@ -57,7 +58,7 @@ def import_GPUtil():
 
 
 def import_flask():
-    run_pip(f"install flask flask-cors flask-socketio",
+    run_pip(f"install flask flask-cors flask-socketio flask_restx",
             desc="Flask Web Socket io")
 
     try:
